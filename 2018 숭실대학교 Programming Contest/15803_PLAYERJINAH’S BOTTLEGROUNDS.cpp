@@ -1,4 +1,4 @@
-/*#include<iostream>
+#include<iostream>
 #include<utility>
 #include<vector>
 #include<algorithm>
@@ -56,4 +56,4 @@ int main(void) {
 		cout << "WHERE IS MY CHICKEN?";
 	else
 		cout << "WINNER WINNER CHICKEN DINNER!";
-}*/
+}

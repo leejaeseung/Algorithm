@@ -22,7 +22,7 @@
 풀이:
 짝수 번째날엔 제자리로 돌아오는 것을 이용해 방문을 체크해준다.
 */
-/*#include<iostream>
+#include<iostream>
 #include<algorithm>
 #include<queue>
 #include<utility>
@@ -99,4 +99,4 @@ int main(void) {
 	else
 		cout << "YES";
 
-}*/
+}
