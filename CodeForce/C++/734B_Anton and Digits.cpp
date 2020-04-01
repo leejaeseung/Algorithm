@@ -25,7 +25,7 @@ Print one integer — maximum possible sum of Anton's favorite integers that can
 그리디하게 256을 먼저 만들고, 남은 수들로 32를 만들면 쉽게 풀이할 수 있습니다.
 
 */
-/*#include<iostream>
+#include<iostream>
 #include<algorithm>
 #include<math.h>
 #include<string>
@@ -52,4 +52,4 @@ int main(void) {
 	int cnt32 = min(cnt[3], cnt[2]);
 
 	cout << cnt256 * 256 + cnt32 * 32;
-}*/
+}
