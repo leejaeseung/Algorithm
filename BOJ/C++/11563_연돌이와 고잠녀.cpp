@@ -57,10 +57,12 @@ vector<pair<pdd, pdd>> go;
 double minV = DMAX;
 
 double getDist2(pdd p, double a, double b) {
+	//수선의 발의 길이
 	return abs(-a * p.first + p.second - b) / sqrt(pow(a, 2) + 1);
 }
 
 bool check(double leng1, double leng2, double leng_ori) {
+	//수선의 발을 내릴 수 있는지 판별
 	if (pow(leng_ori, 2) + pow(min(leng2, leng1), 2) > pow(max(leng2, leng1), 2))
 		return true;
 	else
@@ -68,6 +70,7 @@ bool check(double leng1, double leng2, double leng_ori) {
 }
 
 double getDist(pdd p1, pdd p2) {
+	//점과 점 길이
 	return sqrt(pow(p1.first - p2.first, 2) + pow(p1.second - p2.second, 2));
 }
 
@@ -98,9 +101,11 @@ int main(void) {
 		bool yflag = false;
 		
 		if (yp2.first - yp1.first == 0)
+			// x = a 꼴의 방정식
 			yflag = true;
 		else {
 			if (yp2.second - yp1.second == 0)
+				//y = a 꼴의 방정식
 				ya = 0;
 			else
 				ya = (yp2.second - yp1.second) / (yp2.first - yp1.first);
@@ -118,9 +123,11 @@ int main(void) {
 			bool gflag = false;
 
 			if (gp2.first - gp1.first == 0)
+				// x = a 꼴의 방정식
 				gflag = true;
 			else {
 				if (gp2.second - gp1.second == 0)
+					//y = a 꼴의 방정식
 					ga = 0;
 				else
 					ga = (gp2.second - gp1.second) / (gp2.first - gp1.first);
@@ -129,6 +136,7 @@ int main(void) {
 				gb = gp1.second - gp1.first * ga;
 			}
 
+			//수선의 발
 			if (check(getDist(gp1, yp1), getDist(gp1, yp2), getDist(yp1, yp2))) {
 				if (yflag) {
 					minV = min(minV, abs(gp1.first));
@@ -166,6 +174,7 @@ int main(void) {
 			}
 
 			minV = min(minV, min(min(min(getDist(yp1, gp1), getDist(yp1, gp2)), getDist(yp2, gp1)), getDist(yp2, gp2)));
+			//점 -> 점의 길이
 		}
 	}
 	cout.precision(16);
