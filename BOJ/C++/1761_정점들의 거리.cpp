@@ -22,6 +22,10 @@ depth가 같아졌다면, 다음 두 가지 경우 중 하나입니다.
 2. 두 노드가 다름 -> 두 노드가 같아질 때까지 부모 노드를 타고 올라갑니다.
 
 공통 조상을 찾았다면, 두 노드간의 거리는 root부터 두 노드까지 거리 - root부터 공통조상 까지의 거리 입니다.
+(부모를 2의 n 승 씩 올라가는 방법? 공부 ㄱㄱ)
+
+2의 n승씩 올라가는 법
+https://www.crocus.co.kr/660 를 참고했습니다.
 */
 #include<iostream>
 #include<algorithm>
@@ -49,7 +53,8 @@ int mv2[4] = { 1, 0, -1, 0 };
 
 int n, m;
 vector<pii> edge[40001];
-int dis[40001];
+pii dis[40001][17];
+int dist[40001];
 int parent[40001];
 bool visit[40001];
 int depth[40001];
@@ -65,44 +70,37 @@ void dfs(int now, int d) {
 		if (!visit[next]) {
 			visit[next] = true;
 			parent[next] = now;
-			dis[next] = dis[now] + next_dis;
-			dfs(next, d + 1);
+			dis[next][0].first = next_dis;
+			dis[next][0].second = now;
+			dist[next] = dist[now] + next_dis;
+;			dfs(next, d + 1);
 		}
 	}
 }
 
-int getParent(int n1, int n2) {
+int getParent(int up, int down) {
 
-	int n1_dist = dis[n1];
-	int n2_dist = dis[n2];
-	
-	int final_node = 0;
-
-	while (true) {
-		int pn1 = parent[n1];
-		int pn2 = parent[n2];
-
-		if (depth[n1] > depth[n2]) {
-				n1 = pn1;
-		}
-		else if (depth[n1] < depth[n2]) {
-				n2 = pn2;
-		}
-		else {
-			if (n1 == n2) {
-				final_node = n1;
-				//공통 조상
-				break;
-			}
-			else {
-				n1 = pn1;
-				n2 = pn2;
-			}
+	for (int i = 16; i >= 0; i--)
+	{
+		if (depth[dis[down][i].second] >= depth[up]) {
+			down = dis[down][i].second;
+			if (depth[down] == depth[up])	break;
 		}
 	}
 
-	return n1_dist + n2_dist - dis[final_node] * 2;
-	//root부터 두 노드까지의 거리 - root부터 공통 조상까지의 거리
+	int lca = up;
+
+	if (up != down) {
+		for (int i = 16; i >= 0; i--) {
+			if (dis[down][i].second != dis[up][i].second) {
+				down = dis[down][i].second;
+				up = dis[up][i].second;
+			}
+			lca = dis[up][i].second;
+		}
+	}
+	return lca;
+
 }
 
 int main(void) {
@@ -120,12 +118,28 @@ int main(void) {
 	visit[1] = true;
 	dfs(1, 1);
 
+	for (int j = 1; j < 17; j++)
+	{
+		for (int i = 1; i <= n; i++)
+		{
+			dis[i][j].first = dis[dis[i][j - 1].second][j - 1].first + dis[i][j - 1].first;
+			dis[i][j].second = dis[dis[i][j - 1].second][j - 1].second;
+		}
+	}
+
 	cin >> m;
 	for (int i = 0; i < m; i++)
 	{
-		int s, e;
+		int s, e, fnd;
 		cin >> s >> e;
 
-		cout << getParent(s, e) << "\n";
+		if (depth[s] >= depth[e]) {
+			fnd = getParent(e, s);
+		}
+		else {
+			fnd = getParent(s, e);
+		}
+
+		cout << dist[s] + dist[e] - 2 * dist[fnd] << "\n";
 	}
 }
