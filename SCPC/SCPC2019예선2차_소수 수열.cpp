@@ -39,7 +39,7 @@ x의 모든 자리를 한번씩 지워보고, 지운 수도 소수라면 그 수의 dp 값을 더한다.
 지워볼 때마다 최댓값을 현재 dp[x]에 갱신한다.
 (에라토스테네스의 체를 이용해 30000까지의 소수 배열을 미리 만든다)
 */
-#include<iostream>
+/*#include<iostream>
 #include<memory.h>
 #include<algorithm>
 #include<math.h>
@@ -149,4 +149,4 @@ int main(void) {
 		else
 			cout << "3\n";
 	}
-}
+}*/
