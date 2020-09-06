@@ -44,7 +44,7 @@
 
 좌표의 크기가 최대 100000 이므로 ccw를 구할 때 오버플로우가 발생할 수 있다.
 */
-/*#include<iostream>
+#include<iostream>
 #include<memory.h>
 #include<algorithm>
 #include<math.h>
@@ -182,4 +182,4 @@ int main(void) {
 	}
 
 	cout << ans;
-}*/
+}
