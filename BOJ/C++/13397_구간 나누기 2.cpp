@@ -29,7 +29,7 @@ N개의 수로 이루어진 1차원 배열이 있다. 이 배열을 M개 이하의 구간으로 나누어서 구
 모든 구간 (s,e) 에 대해 구간 값들을 구해 놓고, 0 ~ 10000 을 이분 탐색으로 최소값을 찾았다.
 mid 값보다 구간 값이 작게 구간들을 나눴을 때 구간의 개수가 m 보다 커지면 false를 반환하는 parametric 함수로 풀이했다.
 */
-#include<iostream>
+/*#include<iostream>
 #include<memory.h>
 #include<algorithm>
 #include<math.h>
@@ -61,18 +61,22 @@ int mv_all2[8] = { 1, 0, -1, 0 , -1, 1, -1, 1 };
 
 int n, m;
 int arr[5001];
-int value[5001][5001];
 
 bool parametric(int v) {
 
 	int group = 1;
-	int s = 1;
-
+	int mx = 0;
+	int mn = IMAX;
+	
 	for (int i = 1; i <= n; i++)
 	{
-		if (value[s][i] > v) {
+		mx = max(mx, arr[i]);
+		mn = min(mn, arr[i]);
+
+		if (mx - mn > v) {
 			group++;
-			s = i;
+			mx = arr[i];
+			mn = arr[i];
 		}
 	}
 
@@ -91,19 +95,6 @@ int main(void) {
 		cin >> arr[i];
 	}
 
-	for (int i = 1; i <= n; i++)
-	{
-		int mx = 0;
-		int mn = IMAX;
-
-		for (int j = i; j <= n; j++)
-		{
-			mx = max(mx, arr[j]);
-			mn = min(mn, arr[j]);
-			value[i][j] = mx - mn;
-		}
-	}
-
 	int s = 0;
 	int e = 10000;
 	int ans = 0;
@@ -120,4 +111,4 @@ int main(void) {
 		}
 	}
 	cout << ans;
-}
+}*/
