@@ -44,6 +44,7 @@ public:
 
 node* root;
 double allCnt = 0;
+vector<pair<string, double>> ans;
 
 void search(node* now) {
 
@@ -56,7 +57,7 @@ void search(node* now) {
 	}
 
 	if (now->cnt != 0) {
-		cout << now->nowStr << " " << now->cnt / allCnt * 100 << "\n";
+		ans.push_back({ now->nowStr, now->cnt / allCnt * 100 });
 	}
 }
 
@@ -88,4 +89,11 @@ int main(void) {
 	cout.precision(4);
 	cout << fixed;
 	search(root);
+
+	sort(ans.begin(), ans.end());
+
+	for (int i = 0; i < ans.size(); i++)
+	{
+		cout << ans[i].first << " " << ans[i].second << "\n";
+	}
 }
